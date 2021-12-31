@@ -1,0 +1,10 @@
+{
+  "dynamodb": {
+    "tables": {
+      "environments": "",
+      "log_ingestion_streams": "",
+      "log_group_blacklist": "",
+      "locks": ""
+    }
+  }
+}
