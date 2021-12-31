@@ -3,7 +3,6 @@
     "tables": {
       "environments": "",
       "log_ingestion_streams": "",
-      "log_ingestion_streams_iam_roles": "",
       "log_group_blacklist": "",
       "locks": ""
     }
