@@ -7,8 +7,6 @@ from src.services.log_ingestion_streams_service import LogIngestionStreamsServic
 
 
 class EnvironmentsAdd(Command):
-    """A simple command that prints a message."""
-
     def __init__(self, app, app_args):
         super().__init__(app, app_args)
 
