@@ -2,6 +2,8 @@ import logging
 
 from cliff.lister import Lister
 import boto3.dynamodb
+from src.services.environments_service import EnvironmentsService
+from src.services.log_ingestion_streams_service import LogIngestionStreamsService
 
 
 class EnvironmentsList(Lister):
@@ -14,14 +16,13 @@ class EnvironmentsList(Lister):
         client = boto3.client('dynamodb')
         tables = client.list_tables()
 
-        environment_items = []
-        log_ingestion_stream_items = []
-        for table in tables['TableNames']:
-            # Look through the table names and get the environment and log ingestion streams items
-            if "Environments" in table:
-                environment_items.append(client.scan(TableName=table))
-            if "LogIngestionStreams" in table:
-                log_ingestion_stream_items.append(client.scan(TableName=table))
+        # Init services
+        environments_svc = EnvironmentsService(self.app.config['dynamodb'])
+        ingestion_streams_svc = LogIngestionStreamsService(self.app.config['dynamodb'])
+
+        # Get list of items in tables
+        environment_items = environments_svc.list()
+        log_ingestion_stream_items = ingestion_streams_svc.list()
 
         # Checks to see if the number of environments is the same number of log ingestion streams and if not it raises
         # an error
