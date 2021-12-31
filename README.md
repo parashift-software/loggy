@@ -30,7 +30,7 @@ sam build
 sam deploy
 ```
 
-## Application Installation
+## Application Setup
 
 Docker is the supported way to run Loggy.
 
@@ -39,7 +39,17 @@ Docker is the supported way to run Loggy.
 ./build.sh
 ```
 
-2. Add bash function to your bash profile for convenience
+2. Create config file
+``` bash
+mkdir ~/.loggy
+cp config.template.json ~/.loggy/config.json
+```
+
+3. Update config with DynamoDB table names
+Open the DynamoDB service in the AWS console and find the tables created for Loggy by the AWS SAM template.
+Update the Loggy config file accordingly.
+
+4. Add bash function to your bash profile for convenience
 ```bash
 function loggy {
   docker run --rm -it -v "${HOME}/.loggy:/etc/loggy" -v "${HOME}/.aws:/root/.aws" loggy:latest "${@:1}"
