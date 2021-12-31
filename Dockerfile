@@ -1,16 +1,18 @@
 FROM python:3.9.9
 
-# Copy files
+# Set workdir
 WORKDIR /opt/loggy
-COPY ./setup.py ./
-COPY ./src ./src/
 
 # Install dependencies
-RUN pip3 install -r ./src/requirements.txt
+COPY ./src/requirements.txt ./
+RUN pip3 install -r ./requirements.txt
 
 # Install application
+COPY ./setup.py ./
+COPY ./src ./src/
 RUN python3 setup.py install
 
 # Run loggy
 ENTRYPOINT ["loggy"]
 CMD []
+#CMD bash

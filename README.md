@@ -42,6 +42,6 @@ Docker is the supported way to run Loggy.
 2. Add bash function to your bash profile for convenience
 ```bash
 function loggy {
-  docker run --rm -it loggy:latest "${@:1}"
+  docker run --rm -it -v "${HOME}/.loggy:/etc/loggy" -v "${HOME}/.aws:/root/.aws" loggy:latest "${@:1}"
 }
 ```

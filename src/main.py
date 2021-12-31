@@ -1,4 +1,6 @@
 import sys
+import os
+import json
 
 from cliff.app import App
 from cliff.commandmanager import CommandManager
@@ -14,8 +16,13 @@ class LoggyApp(App):
             deferred_help=True,
             )
 
+        self.config = None
+
     def initialize_app(self, argv):
-        pass
+        config_path = '/etc/loggy/config.json'
+        if os.path.exists(config_path):
+            with open(config_path, 'r') as config_file:
+                self.config = json.loads(config_file.read())
 
     def prepare_to_run_command(self, cmd):
         pass
