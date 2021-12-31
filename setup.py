@@ -53,6 +53,9 @@ setup(
         ],
         'parashift.loggy': [
             'setup = src.setup:Setup',
+            'environments = src.environments.list:EnvironmentsList',
+            'environments_list = src.environments.list:EnvironmentsList',
+            'environments_add = src.environments.add:EnvironmentsAdd',
         ],
     },
 
