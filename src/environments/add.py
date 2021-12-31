@@ -32,7 +32,7 @@ class EnvironmentsAdd(Command):
         ingestion_streams_svc = LogIngestionStreamsService(self.app.config['dynamodb'])
 
         # Create environment and ingestion stream
-        environment = environments_svc.create(parsed_args.name)
+        environment = environments_svc.create(environment_name)
         self.log.info(f'Created environment: {json.dumps(environment)}')
 
         stream = ingestion_streams_svc.create(destination_arn, iam_role_arn, environment['id'])

@@ -13,5 +13,4 @@ class EnvironmentsList(Command):
     log = logging.getLogger(__name__)
 
     def take_action(self, parsed_args):
-        self.log.info('we listin stuff bruh')
-        # self.log.info(json.dumps(parsed_args))
+        self.log.info('TODO: List environments')

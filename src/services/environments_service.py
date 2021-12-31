@@ -8,9 +8,6 @@ class EnvironmentsService:
         self._dynamodb_config = dynamodb_config
         self._dynamodb = boto3.resource('dynamodb')
 
-    def list(self):
-        pass
-
     def create(self, name):
         table = self._dynamodb.Table(self._dynamodb_config['tables']['environments'])
 
