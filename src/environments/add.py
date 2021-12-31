@@ -1,7 +1,7 @@
 import logging
-import json
 
 from cliff.command import Command
+from src.services.environments_service import EnvironmentsService
 
 
 class EnvironmentsAdd(Command):
@@ -12,6 +12,14 @@ class EnvironmentsAdd(Command):
 
     log = logging.getLogger(__name__)
 
+    def get_parser(self, prog_name):
+        parser = super(EnvironmentsAdd, self).get_parser(prog_name)
+        parser.add_argument('name')
+        return parser
+
     def take_action(self, parsed_args):
-        self.log.info('we addin stuff bruh')
-        # self.log.info(json.dumps(parsed_args))
+        environment_name = parsed_args.name
+        environments_svc = EnvironmentsService(self.app.config['dynamodb'])
+
+        self.log.info(f'Creating environment \'{environment_name}\'')
+        environments_svc.create(parsed_args.name)
