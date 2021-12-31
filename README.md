@@ -34,7 +34,7 @@ sam deploy
 
 Docker is the supported way to run Loggy.
 
-1. Build the Docker image
+1. Build the Docker image from the root directory
 ```bash
 ./build.sh
 ```
