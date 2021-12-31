@@ -15,4 +15,3 @@ RUN python3 setup.py install
 # Run loggy
 ENTRYPOINT ["loggy"]
 CMD []
-#CMD bash
