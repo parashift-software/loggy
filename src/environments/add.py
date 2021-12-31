@@ -2,6 +2,7 @@ import logging
 
 from cliff.command import Command
 from src.services.environments_service import EnvironmentsService
+from src.services.log_ingestion_streams_service import LogIngestionStreamsService
 
 
 class EnvironmentsAdd(Command):
