@@ -29,10 +29,9 @@ class EnvironmentsList(Lister):
             raise ValueError("Number of environments does not match the number of log ingestion streams. Try "
                              "adding or removing an environment or log ingestion stream")
 
-
         rows = []
         # Creates each row that will be displayed in the table
-        for i in range(len(environment_items)):
+        for i in range(len(environment_items)+1):
             row = {'environment': environment_items[0].get('Items')[i].get('name').get('S'),
                    'destination_arn': log_ingestion_stream_items[0].get('Items')[i].get('destination_arn').get('S'),
                    'iam_role_arn': log_ingestion_stream_items[0].get('Items')[i].get('iam_role_arn').get('S')
