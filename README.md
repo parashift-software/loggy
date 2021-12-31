@@ -29,3 +29,19 @@ sam build
 ```bash
 sam deploy
 ```
+
+## Application Installation
+
+Docker is the supported way to run Loggy.
+
+1. Build the Docker image
+```bash
+./build.sh
+```
+
+2. Add bash function to your bash profile for convenience
+```bash
+function loggy {
+  docker run --rm -it loggy:latest "${@:1}"
+}
+```
