@@ -27,3 +27,13 @@ class CloudWatchLogGroupService:
             subscription_filters.extend(page.get('subscriptionFilters', []))
 
         return subscription_filters
+
+    def subscribe_to_kinesis(self, log_group_name, destination_arn, iam_role_arn):
+        self._client.put_subscription_filter(
+            logGroupName=log_group_name,
+            filterName='KINESIS',
+            filterPattern='',
+            destinationArn=destination_arn,
+            roleArn=iam_role_arn,
+            distribution='Random'
+        )
