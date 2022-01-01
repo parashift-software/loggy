@@ -1,6 +1,7 @@
 import sys
 import os
 import json
+import logging
 
 from cliff.app import App
 from cliff.commandmanager import CommandManager
@@ -19,6 +20,11 @@ class LoggyApp(App):
         self.config = None
 
     def initialize_app(self, argv):
+        # Suppress unwanted logs
+        logging.getLogger('boto3').setLevel(logging.CRITICAL)
+        logging.getLogger('botocore').setLevel(logging.CRITICAL)
+
+        # Load config
         config_path = '/etc/loggy/config.json'
         if os.path.exists(config_path):
             with open(config_path, 'r') as config_file:
