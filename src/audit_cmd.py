@@ -15,8 +15,10 @@ class Audit(Command):
     log = logging.getLogger(__name__)
 
     def take_action(self, parsed_args):
+        log_group_svc = CloudWatchLogGroupService()
+
         # Load data
-        log_groups = CloudWatchLogGroupService().list()
+        log_groups = log_group_svc.list()
         environments = EnvironmentsService(self.app.config['dynamodb']).list()
         ingestion_streams = LogIngestionStreamsService(self.app.config['dynamodb']).list()
 
