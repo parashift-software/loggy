@@ -8,6 +8,10 @@ class LogIngestionStreamsService:
         self._dynamodb_config = dynamodb_config
         self._dynamodb = boto3.resource('dynamodb')
 
+    def list(self):
+        table = self._dynamodb.Table(self._dynamodb_config['tables']['log_ingestion_streams'])
+        return table.scan().get('Items', [])
+
     def create(self, destination_arn, iam_role_arn, environment_id):
         table = self._dynamodb.Table(self._dynamodb_config['tables']['log_ingestion_streams'])
 
