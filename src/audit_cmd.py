@@ -28,7 +28,7 @@ class Audit(Command):
                 option = self.prompt_for_sub_environment(log_group, options)
 
     def prompt_for_sub_environment(self, log_group, options):
-        self.log.info(f'Which environment\'s log ingestion stream should the following log group be subscribed to?')
+        self.log.info(f'\nWhich environment\'s log ingestion stream should the following log group be subscribed to?')
         self.log.info(f"{log_group['logGroupName']}\n")
 
         for idx, option in options.items():
