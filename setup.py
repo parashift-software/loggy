@@ -56,6 +56,7 @@ setup(
             'environments = src.environments.list:EnvironmentsList',
             'environments_add = src.environments.add:EnvironmentsAdd',
             'environments_list = src.environments.list:EnvironmentsList',
+            'audit = src.audit_cmd:Audit',
         ],
     },
 
