@@ -56,6 +56,7 @@ setup(
             'environments = src.environments.list_cmd:EnvironmentsList',
             'environments_add = src.environments.add_cmd:EnvironmentsAdd',
             'environments_list = src.environments.list_cmd:EnvironmentsList',
+            'environments_delete = src.environments.delete_cmd:EnvironmentsDelete',
             'audit = src.audit_cmd:Audit',
             'blacklist = src.blacklist.list_cmd:BlacklistLogGroupList',
             'blacklist_list = src.blacklist.list_cmd:BlacklistLogGroupList',
