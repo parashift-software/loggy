@@ -59,6 +59,7 @@ setup(
             'audit = src.audit_cmd:Audit',
             'blacklist = src.blacklist.list_cmd:BlacklistLogGroupList',
             'blacklist_list = src.blacklist.list_cmd:BlacklistLogGroupList',
+            'blacklist_clear = src.blacklist.clear_cmd:BlacklistLogGroupClear',
         ],
     },
 
