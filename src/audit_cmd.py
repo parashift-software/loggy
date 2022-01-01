@@ -18,14 +18,14 @@ class Audit(Command):
         log_group_svc = CloudWatchLogGroupService()
 
         # Load data
-        log_groups = log_group_svc.list()
         self.log.info('Fetching log groups ...')
+        log_groups = log_group_svc.list()
 
-        environments = EnvironmentsService(self.app.config['dynamodb']).list()
         self.log.info('Fetching environments ...')
+        environments = EnvironmentsService(self.app.config['dynamodb']).list()
 
-        ingestion_streams = LogIngestionStreamsService(self.app.config['dynamodb']).list()
         self.log.info('Fetching log ingestion streams ...')
+        ingestion_streams = LogIngestionStreamsService(self.app.config['dynamodb']).list()
 
         ingestion_streams_indexed = {}
         for ingestion_stream in ingestion_streams:
