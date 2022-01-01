@@ -20,7 +20,11 @@ class Audit(Command):
         # Load data
         log_groups = log_group_svc.list()
         environments = EnvironmentsService(self.app.config['dynamodb']).list()
+
         ingestion_streams = LogIngestionStreamsService(self.app.config['dynamodb']).list()
+        ingestion_streams_indexed = {}
+        for ingestion_stream in ingestion_streams:
+            ingestion_streams_indexed[ingestion_stream['environment_id']] = ingestion_stream
 
         # Subscription options
         options = self.generate_options(environments)
@@ -28,6 +32,14 @@ class Audit(Command):
         for log_group in log_groups:
             if len(log_group.get('subscriptionFilters')) == 0:
                 option = self.prompt_for_sub_environment(log_group, options)
+                sub_environment_id = option['environment_id']
+                if sub_environment_id:
+                    ingestion_stream = ingestion_streams_indexed[sub_environment_id]
+                    log_group_svc.subscribe_to_kinesis(
+                        log_group['logGroupName'],
+                        ingestion_stream['destination_arn'],
+                        ingestion_stream['iam_role_arn']
+                    )
 
     def prompt_for_sub_environment(self, log_group, options):
         self.log.info(f'\nWhich environment\'s log ingestion stream should the following log group be subscribed to?')
