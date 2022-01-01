@@ -18,10 +18,15 @@ class Audit(Command):
         log_group_svc = CloudWatchLogGroupService()
 
         # Load data
+        self.log.info('Fetching log groups ...')
         log_groups = log_group_svc.list()
+
+        self.log.info('Fetching environments ...')
         environments = EnvironmentsService(self.app.config['dynamodb']).list()
 
+        self.log.info('Fetching log ingestion streams ...')
         ingestion_streams = LogIngestionStreamsService(self.app.config['dynamodb']).list()
+
         ingestion_streams_indexed = {}
         for ingestion_stream in ingestion_streams:
             ingestion_streams_indexed[ingestion_stream['environment_id']] = ingestion_stream
@@ -60,7 +65,12 @@ class Audit(Command):
         if selection in ['q', 'quit', 'exit']:
             return None
 
-        return options[selection]
+        option = options.get(selection)
+        if option:
+            return option
+
+        # User entered bad input. Try again
+        return self.prompt_for_sub_environment(log_group, options)
 
     def generate_options(self, environments):
         counter = 1
