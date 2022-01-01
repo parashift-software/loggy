@@ -30,7 +30,7 @@ class Audit(Command):
         ingestion_streams = LogIngestionStreamsService(self.app.config['dynamodb']).list()
 
         self.log.info('Fetching blacklisted log groups ...')
-        blacklisted_log_groups = LogGroupsBlacklistService(self.app.config['dynamodb']).list()
+        blacklisted_log_groups = log_group_blacklist_svc.list()
 
         ingestion_streams_indexed = {}
         for ingestion_stream in ingestion_streams:
