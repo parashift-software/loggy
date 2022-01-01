@@ -61,7 +61,7 @@ class Audit(Command):
                 self.log.info(f'{key}: {value}')
             self.log.info('')
         else:
-            self.log.info('Tags: None')
+            self.log.info('Tags: None\n')
 
         for idx, option in options.items():
             self.log.info(f'{idx}: {option["display"]}')
