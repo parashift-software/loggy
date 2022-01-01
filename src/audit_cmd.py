@@ -54,10 +54,10 @@ class Audit(Command):
         self.log.info(f'\nWhich environment\'s log ingestion stream should the following log group be subscribed to?')
         self.log.info(f"Name: {log_group['logGroupName']}")
 
-        tags = log_group['tags'].items()
+        tags = log_group['tags']
         if tags:
             self.log.info('Tags:')
-            for key, value in tags:
+            for key, value in tags.items():
                 self.log.info(f'{key}: {value}')
             self.log.info('')
         else:
