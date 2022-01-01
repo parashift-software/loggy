@@ -32,6 +32,10 @@ class Audit(Command):
         for log_group in log_groups:
             if len(log_group.get('subscriptionFilters')) == 0:
                 option = self.prompt_for_sub_environment(log_group, options)
+                if not option:
+                    # User asked to exit
+                    return
+
                 sub_environment_id = option['environment_id']
                 if sub_environment_id:
                     ingestion_stream = ingestion_streams_indexed[sub_environment_id]
@@ -47,9 +51,14 @@ class Audit(Command):
 
         for idx, option in options.items():
             self.log.info(f'{idx}: {option["display"]}')
+        self.log.info('q: Quit')
 
-        selection = input('Selected option #: ')
-        selection = int(selection.strip())
+        selection = input('Selected option: ').strip().lower()
+        if selection.isnumeric():
+            selection = int(selection)
+
+        if selection in ['q', 'quit', 'exit']:
+            return None
 
         return options[selection]
 
@@ -64,7 +73,7 @@ class Audit(Command):
             }
             counter += 1
 
-        options[counter] = {
+        options['n'] = {
             'display': 'Never Subscribe',
             'environment_id': None
         }
