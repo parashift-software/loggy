@@ -1,9 +1,11 @@
-import json
 import logging
+import json
 
 from cliff.command import Command
 from src.services.environments_service import EnvironmentsService
 from src.services.log_ingestion_streams_service import LogIngestionStreamsService
+from src.environments.validate_destination_arn_action import ValidateDestinationArnAction
+from src.environments.validate_iam_role_arn_action import ValidateIamRoleArnAction
 
 
 class EnvironmentsAdd(Command):
@@ -15,8 +17,8 @@ class EnvironmentsAdd(Command):
     def get_parser(self, prog_name):
         parser = super(EnvironmentsAdd, self).get_parser(prog_name)
         parser.add_argument('environment_name')
-        parser.add_argument('destination_arn')
-        parser.add_argument('iam_role_arn')
+        parser.add_argument('destination_arn', action=ValidateDestinationArnAction)
+        parser.add_argument('iam_role_arn', action=ValidateIamRoleArnAction)
         return parser
 
     def take_action(self, parsed_args):
