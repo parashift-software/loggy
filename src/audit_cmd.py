@@ -45,6 +45,8 @@ class Audit(Command):
                 if not option:
                     # User asked to exit
                     return
+                if option == '$$SKIP':
+                    continue
 
                 sub_environment_id = option['environment_id']
                 if sub_environment_id:
@@ -72,11 +74,16 @@ class Audit(Command):
 
         for idx, option in options.items():
             self.log.info(f'{idx}: {option["display"]}')
+        self.log.info('s: Skip')
         self.log.info('q: Quit')
+    
 
         selection = input('Selected option: ').strip().lower()
         if selection.isnumeric():
             selection = int(selection)
+
+        if selection in ['s', 'skip']:
+            return '$$SKIP'
 
         if selection in ['q', 'quit', 'exit']:
             return None
