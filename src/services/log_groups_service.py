@@ -12,11 +12,7 @@ class CloudWatchLogGroupService:
         paginator = self._client.get_paginator('describe_log_groups')
         iterator = paginator.paginate()
         for page in iterator:
-            for log_group in page.get('logGroups', []):
-                log_group_name = log_group['logGroupName']
-                log_group['subscriptionFilters'] = self.get_subscription_filters(log_group_name)
-                log_group['tags'] = self.get_tags(log_group_name)
-                log_groups.append(log_group)
+            log_groups.extend(page.get('logGroups', []))
 
         return log_groups
 
